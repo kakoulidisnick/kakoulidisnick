@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="grid">
+  <article class="card">
+    <h2>Νέα υποχρέωση</h2>
+    <form method="post" class="form">
+      <label>Πελάτης
+        <select name="client_id" required>
+          {% for client in clients %}
+            <option value="{{ client.id }}">{{ client.name }}</option>
+          {% endfor %}
+        </select>
+      </label>
+      <label>Τίτλος
+        <input name="title" required />
+      </label>
+      <label>Ημερομηνία λήξης
+        <input name="due_date" type="date" required />
+      </label>
+      <label>Σημειώσεις
+        <textarea name="notes" rows="3"></textarea>
+      </label>
+      <button class="button" type="submit">Αποθήκευση</button>
+    </form>
+  </article>
+  <article class="card">
+    <h2>Υποχρεώσεις</h2>
+    {% if obligations %}
+      <ul class="list">
+        {% for obligation in obligations %}
+          <li>
+            <div>
+              <strong>{{ obligation.title }}</strong>
+              <span class="muted">{{ client_lookup.get(obligation.client_id, 'Άγνωστος πελάτης') }} · {{ obligation.due_date }}</span>
+            </div>
+            <div class="tag-row">
+              <span class="tag {{ obligation.status }}">{{ obligation.status }}</span>
+              {% if obligation.status == 'open' %}
+                <form method="post" action="{{ url_for('complete_obligation', obligation_id=obligation.id) }}">
+                  <button class="link-button" type="submit">Ολοκλήρωση</button>
+                </form>
+              {% endif %}
+            </div>
+            {% if obligation.notes %}
+              <p class="muted">{{ obligation.notes }}</p>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="muted">Δεν υπάρχουν υποχρεώσεις.</p>
+    {% endif %}
+  </article>
+</section>
+{% endblock %}
