@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="grid">
+  <article class="card">
+    <h2>Νέος πελάτης</h2>
+    <form method="post" class="form">
+      <label>Όνομα
+        <input name="name" required />
+      </label>
+      <label>Email
+        <input name="email" type="email" />
+      </label>
+      <label>Τηλέφωνο
+        <input name="phone" />
+      </label>
+      <button class="button" type="submit">Αποθήκευση</button>
+    </form>
+  </article>
+  <article class="card">
+    <h2>Πελάτες</h2>
+    {% if clients %}
+      <ul class="list">
+        {% for client in clients %}
+          <li>
+            <strong>{{ client.name }}</strong>
+            <span class="muted">{{ client.email or '-' }} · {{ client.phone or '-' }}</span>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="muted">Δεν υπάρχουν πελάτες.</p>
+    {% endif %}
+  </article>
+</section>
+{% endblock %}

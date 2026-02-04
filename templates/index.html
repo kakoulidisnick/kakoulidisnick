@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="grid">
+  <article class="card">
+    <h2>Σύνοψη</h2>
+    <p><strong>Πελάτες:</strong> {{ clients | length }}</p>
+    <p><strong>Υποχρεώσεις:</strong> {{ obligations | length }}</p>
+    <p><strong>Ανοιχτές:</strong> {{ obligations | selectattr('status', 'equalto', 'open') | list | length }}</p>
+  </article>
+  <article class="card">
+    <h2>Λήγουν σε 7 ημέρες</h2>
+    {% if upcoming %}
+      <ul class="list">
+        {% for obligation in upcoming %}
+          <li>
+            <strong>{{ obligation.title }}</strong>
+            <span class="muted">{{ client_lookup.get(obligation.client_id, 'Άγνωστος πελάτης') }} · {{ obligation.due_date }}</span>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="muted">Δεν υπάρχουν προσεχείς υποχρεώσεις.</p>
+    {% endif %}
+  </article>
+</section>
+
+<section class="card">
+  <h2>Γρήγορες ενέργειες</h2>
+  <div class="quick-links">
+    <a class="button" href="{{ url_for('clients') }}">Προσθήκη πελάτη</a>
+    <a class="button" href="{{ url_for('obligations') }}">Νέα υποχρέωση</a>
+  </div>
+</section>
+{% endblock %}
