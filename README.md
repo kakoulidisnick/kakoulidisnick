@@ -72,6 +72,20 @@ python3 app.py list-clients --data-file /path/to/office-data.json
 DATA_FILE=/path/to/office-data.json python3 web_app.py
 ```
 
+## Πώς βλέπω άμεσα τις αλλαγές μου;
+
+### Στον κώδικα (Git)
+
+```bash
+git status -sb
+git diff
+git diff --staged
+```
+
+### Στο web περιβάλλον
+
+Όταν τρέχετε το `web_app.py`, η Flask είναι σε `debug` mode, οπότε κάνει αυτόματα reload όταν αποθηκεύετε αλλαγές. Αρκεί να κάνετε refresh στο browser.
+
 ## Επόμενα βήματα (ιδέες)
 - Αποστολή email/SMS υπενθυμίσεων.
 - Web interface για ευκολότερη χρήση.
