@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="card">
+  <h2>Ημερολόγιο</h2>
+  <form method="get" class="form form-inline">
+    <label>Έτος
+      <input name="year" type="number" value="{{ year }}" />
+    </label>
+    <label>Μήνας
+      <input name="month" type="number" min="1" max="12" value="{{ month }}" />
+    </label>
+    <button class="button" type="submit">Μετάβαση</button>
+  </form>
+</section>
+
+<section class="calendar">
+  <div class="calendar-header">
+    <span>Δευ</span>
+    <span>Τρι</span>
+    <span>Τετ</span>
+    <span>Πεμ</span>
+    <span>Παρ</span>
+    <span>Σαβ</span>
+    <span>Κυρ</span>
+  </div>
+  {% for week in weeks %}
+    <div class="calendar-row">
+      {% for day in week %}
+        <div class="calendar-cell">
+          {% if day.day %}
+            <div class="calendar-day">{{ day.day }}</div>
+            {% for item in day.items %}
+              <div class="calendar-item">
+                <span class="dot {{ item.priority or 'normal' }}"></span>
+                {{ item.title }} ({{ client_lookup.get(item.client_id, '-') }})
+              </div>
+            {% endfor %}
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  {% endfor %}
+</section>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="grid">
+  <article class="card">
+    <h2>Νέος χρήστης</h2>
+    <form method="post" class="form">
+      <label>Όνομα
+        <input name="name" required />
+      </label>
+      <label>Email
+        <input name="email" type="email" />
+      </label>
+      <label>Ρόλος
+        <select name="role">
+          <option value="staff">Staff</option>
+          <option value="admin">Admin</option>
+        </select>
+      </label>
+      <button class="button" type="submit">Αποθήκευση</button>
+    </form>
+  </article>
+  <article class="card">
+    <h2>Χρήστες</h2>
+    {% if users %}
+      <ul class="list">
+        {% for user in users %}
+          <li>
+            <strong>{{ user.name }}</strong>
+            <span class="muted">{{ user.email or '-' }} · {{ user.role }}</span>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="muted">Δεν υπάρχουν χρήστες.</p>
+    {% endif %}
+  </article>
+</section>
+{% endblock %}

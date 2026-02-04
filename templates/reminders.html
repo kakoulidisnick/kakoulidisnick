@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="card">
+  <h2>Υπενθυμίσεις</h2>
+  <form method="get" class="form form-inline">
+    <label>Ημέρες
+      <input name="days" type="number" min="0" value="{{ days }}" />
+    </label>
+    <button class="button" type="submit">Ενημέρωση</button>
+  </form>
+</section>
+
+<section class="card">
+  <h3>Λίστα υπενθυμίσεων</h3>
+  {% if upcoming %}
+    <ul class="list">
+      {% for obligation in upcoming %}
+        <li>
+          <strong>{{ obligation.title }}</strong>
+          <span class="muted">
+            {{ client_lookup.get(obligation.client_id, 'Άγνωστος πελάτης') }}
+            · {{ obligation.due_date }}
+            · Προτεραιότητα: {{ obligation.priority or 'normal' }}
+            · Υπεύθυνος: {{ user_lookup.get(obligation.assigned_user_id, '-') }}
+          </span>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="muted">Δεν υπάρχουν υποχρεώσεις για υπενθύμιση.</p>
+  {% endif %}
+</section>
+{% endblock %}
