@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="el">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{ title or "Υπενθυμίσεις Λογιστικού Γραφείου" }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container">
+        <h1>Υπενθυμίσεις Λογιστικού Γραφείου</h1>
+        <nav>
+          <a href="{{ url_for('index') }}">Dashboard</a>
+          <a href="{{ url_for('clients') }}">Πελάτες</a>
+          <a href="{{ url_for('users') }}">Χρήστες</a>
+          <a href="{{ url_for('obligations') }}">Υποχρεώσεις</a>
+          <a href="{{ url_for('reminders') }}">Υπενθυμίσεις</a>
+          <a href="{{ url_for('calendar_view') }}">Ημερολόγιο</a>
+        </nav>
+      </div>
+    </header>
+    <main class="container">
+      {% block content %}{% endblock %}
+    </main>
+  </body>
+</html>
